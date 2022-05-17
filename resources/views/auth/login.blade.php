@@ -11,58 +11,21 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="form-group mt-4">
+                            <input type="text" id="username" name="username" class="form-control"
+                                placeholder="Username" />
                         </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="form-group mt-4">
+                            <input type="password" id="password" name="password" class="form-control"
+                                placeholder="Password" />
                         </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
+                        <div class="form-group mt-4">
+                            <button type="button" id="sign-in-button" class="form-control  btn btn-primary">Sign
+                                In</button>
                         </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
+                        <div class="form-group text-center mt-3">
+                            <span class="badge bg-danger " id="auth-msg"></span>
                         </div>
                     </form>
                 </div>
@@ -70,4 +33,33 @@
         </div>
     </div>
 </div>
+<script>
+//  get the sign in button ID
+let signInButton = document.getElementById("sign-in-button");
+
+// bind the button to click event
+signInButton.addEventListener("click", function(e) {
+    e.preventDefault();
+
+    // get the username and password from the form input
+    let credentials = {
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
+    }
+
+    // authenticate to laravel
+    axios.post("{{url('/')}}/sign-in", credentials).then(res => {
+        if (res && res.request && res.request.status === 200) {
+            location.href = "{{url('/')}}/home";
+        }
+    }).catch(err => {
+        let authErrorElement = document.getElementById("auth-msg");
+        if (err && err.response && err.response.status == 422) {
+            authErrorElement.innerHTML = "Username or Password is incorrect";
+            console.log(err);
+        }
+
+    });
+});
+</script>
 @endsection
