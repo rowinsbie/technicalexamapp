@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class MaintenanceController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,5 +24,10 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function MaintenanceForm(Request $request)
+    {
+        return view('maintenance.form');
     }
 }
