@@ -8,7 +8,10 @@ class ManagementController extends Controller
 {
     public function index(Request $request)
     {
-        return view('management.form');
+        return view('management.form',
+         [
+            'floor_list'=>Floor::all()
+         ]);
     }
 
     public function createFloor(Request $request)

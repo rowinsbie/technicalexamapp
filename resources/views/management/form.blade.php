@@ -21,7 +21,7 @@
                             @include('management.AddFloorForm')
                         </div>
                         <div class="col-lg-8">
-
+                        @include('management.FloorList')
                         </div>
                     </div>
                 </div>
