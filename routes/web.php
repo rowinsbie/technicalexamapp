@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\ManagementController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,9 +22,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\MaintenanceController::class, 'index'])->name('home');
-Route::get('/new-maintenance', [App\Http\Controllers\MaintenanceController::class, 'MaintenanceForm']);
+Route::get('/home', [MaintenanceController::class, 'index'])->name('home');
+Route::get('/new-maintenance', [MaintenanceController::class, 'MaintenanceForm']);
+Route::get('/management', [ManagementController::class, 'index']);
 
 
+Route::post('/create-floor',[ManagementController::class,'createFloor']);
 
 Route::post('/sign-in',[LoginController::class,'SignIn']);
