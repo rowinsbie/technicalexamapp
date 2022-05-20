@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\ManagementController;
+use App\Http\Controllers\CellController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,5 +30,6 @@ Route::get('/management', [ManagementController::class, 'index']);
 
 
 Route::post('/create-floor',[ManagementController::class,'createFloor']);
+Route::post('/update-cell',[CellController::class,'updateCell']);
 
 Route::post('/sign-in',[LoginController::class,'SignIn']);

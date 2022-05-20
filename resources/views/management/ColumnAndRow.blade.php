@@ -17,9 +17,13 @@
             <button type="button" id="update" name="update" class="btn btn-primary form-control mt-4">Update</button>
         </div>
     </div>
+    <div class="row mt-3">
+        <span id="message" class="badge bg-danger"></span>
+    </div>
 </form>
 
 <script>
+    
     let updateBtn = document.getElementById("update");
 
     updateBtn.addEventListener("click",function(e)
@@ -28,6 +32,7 @@
 
         let max_column = document.getElementById("max-column").value;
         let max_row = document.getElementById("max-row").value;
+        let message = document.getElementById("message");
         updateCellMax({
             column:max_column,
             row:max_row
@@ -37,9 +42,21 @@
     let updateCellMax = (data) => {
             axios.post("{{url('update-cell')}}",data)
             .then(res => {
-                console.log(res);
+                if(res && res.request)
+                {
+                  
+                    message.classList.remove("bg-danger");
+                    message.classList.add('bg-success');
+                   
+                    message.innerText = "Cell has been updated!";
+                }
             }).catch(err => {
-                console.log(err);
+                if(err && err.response && err.response.status == 422)
+                {
+                    message.classList.remove("bg-success");
+                    message.classList.add('bg-danger');
+                    message.innerText = "Row and Column cannot be empty";
+                }
             });
     }
 

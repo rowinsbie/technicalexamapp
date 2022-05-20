@@ -9,4 +9,5 @@ class CellModel extends Model
 {
     use HasFactory;
     protected $table = "cell_model";
+    protected $guarded = [];
 }
