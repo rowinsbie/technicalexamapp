@@ -11,7 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" ></script>
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 
 
     <!-- Styles -->
@@ -68,5 +69,6 @@
             @yield('content')
         </main>
     </div>
+    
 </body>
 </html>
