@@ -31,5 +31,5 @@ Route::get('/management', [ManagementController::class, 'index']);
 
 Route::post('/create-floor',[ManagementController::class,'createFloor']);
 Route::post('/update-cell',[CellController::class,'updateCell']);
-
+Route::post('add-new-maintenance',[MaintenanceController::class,'createNewMaintenance']);
 Route::post('/sign-in',[LoginController::class,'SignIn']);

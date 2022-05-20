@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="POST">
+                    <form method="POST" id="Maintenance-Form">
                         @csrf
                         <div class="form-group mt-3">
                             <label for="area-code">Area Code</label>
@@ -32,22 +32,31 @@
                             <label for="floor_no">Floor No.</label>
                             <select id="floorno" name="floorno" class="form-control">
                                 <option value="">Select Floor No.</option>
+                                @foreach($FloorList as $floor)
+                                    <option value='{{$floor->id}}'>{{$floor->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group mt-3">
                             <label for="row">No. of Rows</label>
                             <select id="rows" name="rows" class="form-control">
                                 <option value="">Select Rows</option>
+                                @for($i = 1; $i <= $cell->max_row; $i++)
+                                        <option value="{{$i}}">{{$i}}</option>
+                                @endfor
                             </select>
                         </div>
                         <div class="form-group mt-3">
                             <label for="row">No. of Columns</label>
                             <select id="columns" name="columns" class="form-control">
                                 <option value="">Select Columns</option>
+                                @for($i = 1; $i <= $cell->max_column; $i++)
+                                        <option value="{{$i}}">{{$i}}</option>
+                                @endfor
                             </select>
                         </div>
                         <div class="form-group mt-3 text-end">
-                            <button type="button" class="btn btn-primary">Add</button>
+                            <button type="button" id="add-btn" class="btn btn-primary">Add</button>
                             <button type="button" class="btn bordered">Cancel</button>
 
                         </div>
@@ -57,4 +66,30 @@
         </div>
     </div>
 </div>
+<script>
+
+        let addBtn = document.getElementById("add-btn");
+        addBtn.addEventListener("click",function(e){
+            let form = document.getElementById("Maintenance-Form");
+             let data = {
+                 areaCode:document.getElementById("area-code").value,
+                 description:document.getElementById("desc").value,
+                 floor_no:document.getElementById("floorno").value,
+                 row:document.getElementById('rows').value,
+                 column:document.getElementById("columns").value
+             }
+            axios.post('{{url("add-new-maintenance")}}',data).then(res => {
+               if(res && res.request)
+               {
+                   location.href = "{{url('home')}}";
+               }
+            }).catch(err => {
+                console.log(err);
+            });
+            
+        });
+
+
+     
+</script>
 @endsection

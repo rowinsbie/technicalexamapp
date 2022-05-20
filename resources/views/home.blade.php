@@ -28,14 +28,15 @@
                    </tr>
                 </thead>
                 <tbody>
+                 @foreach($maintenance as $data)
                     <tr>
-                        <td>34</td>
-                        <td>Test</td>
-                        <td>Ground</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td></td>
+                        <td>{{$data->area_code}}</td>
+                        <td>{{$data->description}}</td>
+                        <td>{{$data->Floor->name}}</td>
+                        <td>{{$data->row}}</td>
+                        <td>{{$data->column}}</td>
                     </tr>
+                 @endforeach
                 </tbody>
             </table>
                 </div>
