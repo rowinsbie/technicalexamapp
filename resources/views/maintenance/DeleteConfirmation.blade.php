@@ -1,17 +1,8 @@
-<div class="modal fade" id="confirmDelete{{$data->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+<form action="POST">
+    <div class="form-group">
+      <input type="hidden" id="data_id" name="data_id" value="{{$data->id}}" />
+        <button type="button" id="confirmDelete{{$data->id}}" onclick="confirmDelete('{{$data->id}}')" class="btn btn-danger confirmDelete"><span class="material-icons">
+                delete
+            </span></button>
     </div>
-  </div>
-</div>
+</form>

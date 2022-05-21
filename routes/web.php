@@ -32,6 +32,8 @@ Route::get('/maintenance-update/{id}',[MaintenanceController::class,'Update']);
 Route::post('/create-floor',[ManagementController::class,'createFloor']);
 Route::post('add-new-maintenance',[MaintenanceController::class,'createNewMaintenance']);
 Route::post('update-maintenance',[MaintenanceController::class,'UpdateMaintenance']);
+Route::post('delete-maintenance',[MaintenanceController::class,'Delete']);
+
 
 Route::post('/update-cell',[CellController::class,'updateCell']);
 Route::post('/sign-in',[LoginController::class,'SignIn']);

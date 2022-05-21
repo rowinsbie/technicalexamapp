@@ -54,6 +54,11 @@ class MaintenanceController extends Controller
     ]);
     }
 
+    public function Delete(Request $request)
+    {
+        return Maintenance::find($request['id'])->delete();
+    }
+
     public function UpdateMaintenance(MaintenanceRequest $request)
     {
         return Maintenance::find($request['id'])->update([
