@@ -37,17 +37,18 @@
                                 <td>{{$data->column}}</td>
                                 <td>
 
-                                    <a href="" class="btn btn-primary"><span class="material-icons">
+                                    <a href="{{url('maintenance-update')}}/{{$data->id}}" class="btn btn-primary"><span class="material-icons">
                                             border_color
                                         </span></a>
-                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                         data-bstarget="#confirmDelete{{$data->id}}"><span class="material-icons">
                                             delete
                                         </span></button>
                                     @include('maintenance.DeleteConfirmation')
-                                    <a href="" class="btn btn-primary"><span class="material-icons">
-list_alt
-</span></a>
+                                    <a href="" class="btn btn-primary"><span
+                                            class="material-icons">
+                                            list_alt
+                                        </span></a>
                                 </td>
                             </tr>
                             @endforeach

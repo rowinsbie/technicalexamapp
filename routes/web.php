@@ -27,9 +27,11 @@ Auth::routes();
 Route::get('/home', [MaintenanceController::class, 'index'])->name('home');
 Route::get('/new-maintenance', [MaintenanceController::class, 'MaintenanceForm']);
 Route::get('/management', [ManagementController::class, 'index']);
-
+Route::get('/maintenance-update/{id}',[MaintenanceController::class,'Update']);
 
 Route::post('/create-floor',[ManagementController::class,'createFloor']);
-Route::post('/update-cell',[CellController::class,'updateCell']);
 Route::post('add-new-maintenance',[MaintenanceController::class,'createNewMaintenance']);
+Route::post('update-maintenance',[MaintenanceController::class,'UpdateMaintenance']);
+
+Route::post('/update-cell',[CellController::class,'updateCell']);
 Route::post('/sign-in',[LoginController::class,'SignIn']);

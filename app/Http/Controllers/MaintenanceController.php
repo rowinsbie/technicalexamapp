@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\NewMaintenanceRequest;
+use App\Http\Requests\NewMaintenanceRequest as MaintenanceRequest;
 use App\Models\FloorList as Floor;
 use App\Models\CellModel as Cell;
 use App\Models\MaintenanceModel as Maintenance;
@@ -39,8 +39,34 @@ class MaintenanceController extends Controller
         ]);
     }
 
+    public function Update(Request $request)
+    {
+        $data = Maintenance::find($request['id']);
+        if(!$data)
+        {
+            abort(404);
+        }
 
-    public function createNewMaintenance(Request $request)
+       return view('maintenance.updateForm',[
+        'cell'=>Cell::first(),
+        'FloorList'=>Floor::all(),
+        'maintenance'=>$data
+    ]);
+    }
+
+    public function UpdateMaintenance(MaintenanceRequest $request)
+    {
+        return Maintenance::find($request['id'])->update([
+            'area_code'=>$request['areaCode'],
+            'description'=>$request['description'],
+            'floor_id'=>$request['floor_no'],
+            'row'=>$request['row'],
+            'column'=>$request['column']
+        ]);
+    }
+
+
+    public function createNewMaintenance(MaintenanceRequest $request)
     {
         return Maintenance::create([
             'area_code'=>$request['areaCode'],
