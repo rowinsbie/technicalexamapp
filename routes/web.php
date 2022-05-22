@@ -28,6 +28,8 @@ Route::get('/home', [MaintenanceController::class, 'index'])->name('home');
 Route::get('/new-maintenance', [MaintenanceController::class, 'MaintenanceForm']);
 Route::get('/management', [ManagementController::class, 'index']);
 Route::get('/maintenance-update/{id}',[MaintenanceController::class,'Update']);
+Route::get('/maintenance-list/{id}',[MaintenanceController::class,'List']);
+
 
 Route::post('/create-floor',[ManagementController::class,'createFloor']);
 Route::post('add-new-maintenance',[MaintenanceController::class,'createNewMaintenance']);

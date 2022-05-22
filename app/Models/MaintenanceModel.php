@@ -15,6 +15,11 @@ class MaintenanceModel extends Model
     {
         return $this->belongsTo(FloorList::class,'floor_id','id');
     }
+
+    public function MaintenanceStatus()
+    {
+        return $this->hasMany(MaintenanceStatus::class,'maintenance_id','id');
+    }
     
 
 }

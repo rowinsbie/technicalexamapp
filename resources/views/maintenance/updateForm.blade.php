@@ -105,7 +105,7 @@ addBtn.addEventListener("click", function(e) {
         if (err && err.response && err.response.status == 422) {
             Swal.fire({
                 title: "Attention!",
-                text: "Please make sure no field left unfilled",
+                text: "Please make sure no field is left unfilled",
                 icon: "warning"
             });
 

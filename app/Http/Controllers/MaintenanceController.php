@@ -7,6 +7,7 @@ use App\Http\Requests\NewMaintenanceRequest as MaintenanceRequest;
 use App\Models\FloorList as Floor;
 use App\Models\CellModel as Cell;
 use App\Models\MaintenanceModel as Maintenance;
+use App\Models\MaintenanceStatus;
 class MaintenanceController extends Controller
 {
     /**
@@ -66,19 +67,50 @@ class MaintenanceController extends Controller
             'description'=>$request['description'],
             'floor_id'=>$request['floor_no'],
             'row'=>$request['row'],
+           
             'column'=>$request['column']
+        ]);
+    }
+
+    public function List(Request $request)
+    {
+        return view('maintenance.List',[
+          
+            'maintenance'=>Maintenance::where('id',$request['id'])->first(),
         ]);
     }
 
 
     public function createNewMaintenance(MaintenanceRequest $request)
     {
-        return Maintenance::create([
+        $isCreated =  Maintenance::create([
             'area_code'=>$request['areaCode'],
             'description'=>$request['description'],
             'floor_id'=>$request['floor_no'],
             'row'=>$request['row'],
             'column'=>$request['column']
         ]);
+        if($isCreated)
+        {
+            $this->setDefaultMaintenanceStatus($isCreated);
+        }
     }
+
+    private function setDefaultMaintenanceStatus($Maintenance)
+    {       
+        for($r = 1; $r <= $Maintenance->row; $r++)
+        {
+            for($c = 1; $c <= $Maintenance->column; $c++)
+            {
+                MaintenanceStatus::create([
+                    'maintenance_id'=>$Maintenance->id,
+                    'column_no'=>$c,
+                    'row_no'=>$r,
+                    'status_id'=>2 // by default
+                ]);
+            }
+        }
+           
+    }
+
 }

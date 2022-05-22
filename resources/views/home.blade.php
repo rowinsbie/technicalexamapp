@@ -50,7 +50,7 @@
                                         </span></a>
                                     @include("maintenance.DeleteConfirmation")
 
-                                    <a href="" class="btn btn-primary"><span class="material-icons">
+                                    <a href="{{url('maintenance-list')}}/{{$data->id}}" class="btn btn-primary"><span class="material-icons">
                                             list_alt
                                         </span></a>
                                 </td>
