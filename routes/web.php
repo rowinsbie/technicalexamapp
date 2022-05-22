@@ -35,6 +35,7 @@ Route::post('/create-floor',[ManagementController::class,'createFloor']);
 Route::post('add-new-maintenance',[MaintenanceController::class,'createNewMaintenance']);
 Route::post('update-maintenance',[MaintenanceController::class,'UpdateMaintenance']);
 Route::post('delete-maintenance',[MaintenanceController::class,'Delete']);
+Route::post('update-status',[MaintenanceController::class,'UpdateStatus']);
 
 
 Route::post('/update-cell',[CellController::class,'updateCell']);

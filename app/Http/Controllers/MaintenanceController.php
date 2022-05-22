@@ -8,6 +8,8 @@ use App\Models\FloorList as Floor;
 use App\Models\CellModel as Cell;
 use App\Models\MaintenanceModel as Maintenance;
 use App\Models\MaintenanceStatus;
+use App\Models\Status;
+
 class MaintenanceController extends Controller
 {
     /**
@@ -62,7 +64,7 @@ class MaintenanceController extends Controller
 
     public function UpdateMaintenance(MaintenanceRequest $request)
     {
-        return Maintenance::find($request['id'])->update([
+        $isUpdated = Maintenance::find($request['id'])->update([
             'area_code'=>$request['areaCode'],
             'description'=>$request['description'],
             'floor_id'=>$request['floor_no'],
@@ -70,6 +72,10 @@ class MaintenanceController extends Controller
            
             'column'=>$request['column']
         ]);
+        if($isUpdated)
+        {
+            $this->setMaintenanceStatus(Maintenance::find($request['id']));
+        }
     }
 
     public function List(Request $request)
@@ -77,6 +83,7 @@ class MaintenanceController extends Controller
         return view('maintenance.List',[
           
             'maintenance'=>Maintenance::where('id',$request['id'])->first(),
+            'statusList'=>Status::all()
         ]);
     }
 
@@ -92,25 +99,39 @@ class MaintenanceController extends Controller
         ]);
         if($isCreated)
         {
-            $this->setDefaultMaintenanceStatus($isCreated);
+            $this->setMaintenanceStatus($isCreated);
         }
     }
 
-    private function setDefaultMaintenanceStatus($Maintenance)
+    private function setMaintenanceStatus($Maintenance)
     {       
         for($r = 1; $r <= $Maintenance->row; $r++)
         {
             for($c = 1; $c <= $Maintenance->column; $c++)
             {
-                MaintenanceStatus::create([
-                    'maintenance_id'=>$Maintenance->id,
-                    'column_no'=>$c,
-                    'row_no'=>$r,
-                    'status_id'=>2 // by default
-                ]);
+                if(!MaintenanceStatus::doesExists(['column_no'=>$c,'row_no'=>$r,'mid'=>$Maintenance->id]))
+                {
+                    MaintenanceStatus::create([
+                        'maintenance_id'=>$Maintenance->id,
+                        'column_no'=>$c,
+                        'row_no'=>$r,
+                        'status_id'=>2 // by default
+                    ]);
+                }
+              
             }
         }
            
+    }
+
+    public function UpdateStatus(Request $request)
+    {
+        return MaintenanceStatus::where('maintenance_id',$request['maintenanceID'])
+        ->where('column_no',$request['column'])
+        ->where('row_no',$request['row'])
+        ->update([
+            'status_id'=>$request['status']
+        ]);
     }
 
 }

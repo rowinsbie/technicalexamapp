@@ -16,6 +16,14 @@ class MaintenanceStatus extends Model
         return $this->belongsTo(Status::class,'status_id','id');
     }
 
+    static function doesExists(array $condition)
+    {
+        extract($condition);
+        return self::where('maintenance_id',$mid)
+        ->where('column_no',$column_no)
+        ->where('row_no',$row_no)->exists();
+    }
+
     public function Maintenance()
     {
         return $this->belongsTo(MaintenanceModel::class,'maintenance_id','id');
