@@ -40,6 +40,9 @@
                         <!-- Authentication Links -->
                         @Auth
                         <li class="nav-item ">
+                    <a href="{{url('home')}}" class="nav-link">Maintenance</a>
+</li>
+                        <li class="nav-item ">
                     <a href="{{url('management')}}" class="nav-link">Management</a>
 </li>
                             <li class="nav-item dropdown">

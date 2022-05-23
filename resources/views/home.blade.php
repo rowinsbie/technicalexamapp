@@ -42,7 +42,7 @@
                                 <td>{{$data->Floor->name}}</td>
                                 <td>{{$data->row}}</td>
                                 <td>{{$data->column}}</td>
-                                <td>
+                                <td style="display:flex">
 
                                     <a href="{{url('maintenance-update')}}/{{$data->id}}" class="btn btn-primary"><span
                                             class="material-icons">

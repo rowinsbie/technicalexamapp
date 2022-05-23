@@ -72,7 +72,7 @@
                         </div>
                         <div class="form-group mt-3 text-end">
                             <button type="button" id="update-btn" class="btn btn-primary">Updare</button>
-                            <button type="button" class="btn bordered">Cancel</button>
+                            <a href="{{url('home')}}" class="btn border">Cancel</a>
 
                         </div>
                     </form>

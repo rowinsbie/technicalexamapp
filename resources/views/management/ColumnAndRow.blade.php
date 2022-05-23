@@ -45,17 +45,23 @@
                 if(res && res.request)
                 {
                   
-                    message.classList.remove("bg-danger");
-                    message.classList.add('bg-success');
-                   
-                    message.innerText = "Cell has been updated!";
+                    Swal.fire({
+                        title:"Updated Cell",
+                        text:"The cell has been added",
+                        icon:"success"
+                    }).then(res => {
+                            location.reload();
+                    });
                 }
             }).catch(err => {
                 if(err && err.response && err.response.status == 422)
                 {
-                    message.classList.remove("bg-success");
-                    message.classList.add('bg-danger');
-                    message.innerText = "Row and Column cannot be empty";
+                    Swal.fire({
+               title:"Attention!",
+               text:"Please row and column cannot be empty",
+               icon:"warning"
+           });
+
                 }
             });
     }

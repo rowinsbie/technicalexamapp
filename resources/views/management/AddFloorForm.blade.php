@@ -22,10 +22,13 @@
         let floorName = document.getElementById('floor-name').value;
         if(floorName == '')
         {
-            responseMessage.innerHTML = "Please enter the floor name!";
-            return false;
+           Swal.fire({
+               title:"Attention!",
+               text:"Please enter the Floor Name",
+               icon:"warning"
+           });
+           return false;
         }
-        responseMessage.innerText = "New Floor has been added";
         createNewFloor({
             floorName:floorName
         });
@@ -34,9 +37,25 @@
     let createNewFloor = (floorData) => {
         axios.post('{{url("create-floor")}}',floorData)
         .then(res => {
-                console.log(res);
+                if(res)
+                {
+                    Swal.fire({
+                        title:"New Floor",
+                        text:"a new floor has been added",
+                        icon:"success"
+                    }).then(res => {
+                            location.reload();
+                    });
+                }
         }).catch(err => {
-            console.log(err);
+            if(err & err.response && err.response.status == 422)
+            {
+                Swal.fire({
+               title:"Attention!",
+               text:"Please enter the Floor Name",
+               icon:"warning"
+           });
+            }
         });
     }
 </script>

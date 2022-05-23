@@ -23,6 +23,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::middleware(['auth'])->group(function()
+{
 
 Route::get('/home', [MaintenanceController::class, 'index'])->name('home');
 Route::get('/new-maintenance', [MaintenanceController::class, 'MaintenanceForm']);
@@ -36,7 +38,7 @@ Route::post('add-new-maintenance',[MaintenanceController::class,'createNewMainte
 Route::post('update-maintenance',[MaintenanceController::class,'UpdateMaintenance']);
 Route::post('delete-maintenance',[MaintenanceController::class,'Delete']);
 Route::post('update-status',[MaintenanceController::class,'UpdateStatus']);
-
-
 Route::post('/update-cell',[CellController::class,'updateCell']);
+    
+});
 Route::post('/sign-in',[LoginController::class,'SignIn']);

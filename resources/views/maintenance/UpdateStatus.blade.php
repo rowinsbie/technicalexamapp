@@ -23,7 +23,7 @@
                                 column:{{$maintenanceStatus->column_no}},
                                 maintenanceID:{{$maintenance->id}}
                             })" class="btn btn-primary save">Save</button>
-                        <button type="button" data-bs-dismiss="modal" class="btn border">Cancel</button>
+                            <button type="button" data-bs-dismiss="modal" class="btn border">Cancel</button>
                     </div>
                 </form>
             </div>

@@ -59,7 +59,11 @@ class MaintenanceController extends Controller
 
     public function Delete(Request $request)
     {
-        return Maintenance::find($request['id'])->delete();
+        $isDeleted = Maintenance::find($request['id'])->delete();
+        if($isDeleted)
+        {
+            return MaintenanceStatus::where('maintenance_id',$request['id'])->delete();
+        }
     }
 
     public function UpdateMaintenance(MaintenanceRequest $request)
@@ -117,10 +121,25 @@ class MaintenanceController extends Controller
                         'row_no'=>$r,
                         'status_id'=>2 // by default
                     ]);
+                } else {
+                   
+                
+                    MaintenanceStatus::where('maintenance_id',$Maintenance->id)
+                    ->where('column_no','>',$Maintenance->column)
+                    ->OrWhere('row_no','>',$Maintenance->row)
+                    ->delete();
+
+                    // MaintenanceStatus::where('maintenance_id',$Maintenance->id)
+                    // ->where('row_no','>',$Maintenance->row)
+                    // ->delete();
+                  
+                   
                 }
               
             }
         }
+
+         
            
     }
 
